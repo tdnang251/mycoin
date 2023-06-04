@@ -22,7 +22,7 @@ function SendCoinPage() {
     const handleClose = () => setOpen(false);
 
     return (
-        <Container sx={{ m: 0, p: 0, minHeight: "100vh", minWidth: "100vw" }}>
+        <Container sx={{ mt: 10,width: "100vw" }}>
             <NavBarSignIn />
             <Box sx={{ mt: 5, height: "100vh", width: "100%" }}>
                 <Typography sx={{ m: 2 }} variant='h4' textAlign={"center"}>
@@ -33,14 +33,16 @@ function SendCoinPage() {
                         <TextField
                             sx={{ m: 1 }}
                             required
-                            id="toAdress"
+                            id="toAddress"
                             label="To Address"
+                            name="toAddress"
                         />
                         <TextField
                             sx={{ m: 1 }}
                             required
                             id="amount"
                             label="Amount"
+                            name="amount"
                         />
                     </FormControl>
                     <Button variant="contained" onClick={handleOpen}>

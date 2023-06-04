@@ -1,10 +1,10 @@
 import './App.css';
-import SendCoinPage from './features/SendCoinPage';
+import ShowStatisticsPage from './features/ShowStatisticsPage';
 
 function App() {
   return (
     <>
-      <SendCoinPage />
+      <ShowStatisticsPage />
     </>
   );
 }

@@ -6,7 +6,7 @@ import Navbar from '../components/Navbar';
 
 function HomePage() {
     return (
-        <Container sx={{ height: '100vh' }}>
+        <Container sx={{ height: '100vh',width:"100vw" }}>
             <Navbar/>
             <Box sx={{ height: "100%" }}>
                 <Stack direction="row" flexWrap="wrap" sx={{ alignItems: "center", justifyContent: "center", height: "100%" }}>

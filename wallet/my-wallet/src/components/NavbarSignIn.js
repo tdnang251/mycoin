@@ -13,10 +13,10 @@ function NavBarSignIn() {
     const pages = ['Dashboard', 'Send', 'Blocks and Transactions', 'Mine'];
 
     return (
-        <AppBar position="static">
+        <AppBar component="nav">
             <Toolbar sx={{ bgcolor: '#6bc3db' }} disableGutters>
                 <MonetizationOnIcon sx={{ ml: 2 }} />
-                <Typography sx={{mr:10}}>
+                <Typography sx={{ mr: 10 }}>
                     My Wallet
                 </Typography>
                 <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
