@@ -1,8 +1,39 @@
-import * as React from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Box, Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import NavBarSignIn from '../components/NavbarSignIn';
+import { SocketContext } from "../context/socket"
 
 function ShowStatisticsPage() {
+    const socket = useContext(SocketContext);
+    const [listBlocks, setListBlocks] = useState([]);
+    const [listTransactions, setListTransactions] = useState([]);
+
+    useEffect(() => {
+        socket.emit("get_all_blocks");
+        socket.emit("get_all_transactions")
+        socket.on("blocks", (data) => {
+            console.log("Blocks: ", JSON.stringify(data["result"]))
+            setListBlocks(data["result"].reverse());
+        })
+        socket.on("transactions", (data) => {
+            console.log("Transactions: ", JSON.stringify(data["result"]))
+            setListTransactions(data["result"].reverse());
+        })
+    }, [])
+
+    const dateTimeReviver = (value) => {
+        var d = new Date(value);
+        var formattedDate = d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear();
+        var hours = (d.getHours() < 10) ? "0" + d.getHours() : d.getHours();
+        var minutes = (d.getMinutes() < 10) ? "0" + d.getMinutes() : d.getMinutes();
+        var formattedTime = hours + ":" + minutes;
+
+        formattedDate = formattedDate + " " + formattedTime;
+        return formattedDate;
+    }
+
+    let lenBlocks = listBlocks.length;
+    let lenTransactions = listTransactions.length;
     return (
         <Container sx={{ width: "100vw", mt: 10, ml: 0 }}>
             <NavBarSignIn />
@@ -21,23 +52,23 @@ function ShowStatisticsPage() {
                                         <TableRow>
                                             <TableCell>#</TableCell>
                                             <TableCell align="right">Timestamp</TableCell>
-                                            <TableCell align="right">From</TableCell>
-                                            <TableCell align="right">To</TableCell>
-                                            <TableCell align="center">Amount</TableCell>
+                                            <TableCell align="right"></TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        <TableRow
-                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                        >
-                                            <TableCell component="th" scope="row">
-
-                                            </TableCell>
-                                            <TableCell align="right"></TableCell>
-                                            <TableCell align="right"></TableCell>
-                                            <TableCell align="right"></TableCell>
-                                            <TableCell align="center"></TableCell>
-                                        </TableRow>
+                                        {
+                                            listBlocks.map((block, index) => (
+                                                <TableRow
+                                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                >
+                                                    <TableCell component="th" scope="row">
+                                                        Block {(lenBlocks - index)}
+                                                    </TableCell>
+                                                    <TableCell align="right">{dateTimeReviver(block["timestamp"])}</TableCell>
+                                                    <TableCell align="right"></TableCell>
+                                                </TableRow>
+                                            ))
+                                        }
                                     </TableBody>
                                 </Table>
                             </TableContainer>
@@ -62,17 +93,22 @@ function ShowStatisticsPage() {
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        <TableRow
-                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                        >
-                                            <TableCell component="th" scope="row">
+                                        {
+                                            listTransactions.map((tran, index) => (
+                                                <TableRow
+                                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                >
+                                                    <TableCell component="th" scope="row">
+                                                        {(lenTransactions - index)}
+                                                    </TableCell>
+                                                    <TableCell align="right">{dateTimeReviver(tran["timestamp"])}</TableCell>
+                                                    <TableCell align="right">{tran["fromAddress"] === null ? "Server" : tran["fromAddress"].substring(0, 10) + "..."}</TableCell>
+                                                    <TableCell align="right">{tran["toAddress"].substring(0, 10) + "..."}</TableCell>
+                                                    <TableCell align="center">{tran["amount"]}</TableCell>
+                                                </TableRow>
+                                            ))
+                                        }
 
-                                            </TableCell>
-                                            <TableCell align="right"></TableCell>
-                                            <TableCell align="right"></TableCell>
-                                            <TableCell align="right"></TableCell>
-                                            <TableCell align="center"></TableCell>
-                                        </TableRow>
                                     </TableBody>
                                 </Table>
                             </TableContainer>
@@ -82,7 +118,7 @@ function ShowStatisticsPage() {
 
 
             </Box>
-        </Container>
+        </Container >
     );
 }
 

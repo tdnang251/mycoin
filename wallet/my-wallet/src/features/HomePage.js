@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import { Box, Button, Card, CardContent, Container, Stack, Typography } from '@mui/material';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import PriceCheckIcon from '@mui/icons-material/PriceCheck';
@@ -6,8 +7,8 @@ import Navbar from '../components/Navbar';
 
 function HomePage() {
     return (
-        <Container sx={{ height: '100vh',width:"100vw" }}>
-            <Navbar/>
+        <Container sx={{ height: '100vh', width: "100vw" }}>
+            <Navbar />
             <Box sx={{ height: "100%" }}>
                 <Stack direction="row" flexWrap="wrap" sx={{ alignItems: "center", justifyContent: "center", height: "100%" }}>
                     <Card sx={{ maxWidth: 250, m: 2, bgcolor: "#EDF2F2" }}>
@@ -21,9 +22,11 @@ function HomePage() {
                             <Typography variant="body2" color="text.secondary">
                                 Generate your own unique wallet now
                             </Typography>
-                            <Button variant="outlined" color="success">
-                                Get Started
-                            </Button>
+                            <Link to="/createwallet">
+                                <Button variant="outlined" color="success">
+                                    Get Started
+                                </Button>
+                            </Link>
                         </CardContent>
                     </Card>
                     <Card sx={{ maxWidth: 250, m: 2, bgcolor: "#EDF2F2" }}>
@@ -37,9 +40,11 @@ function HomePage() {
                             <Typography variant="body2" color="text.secondary">
                                 Connect to the blockchain using the created wallet
                             </Typography>
-                            <Button variant="outlined">
-                                Access now
-                            </Button>
+                            <Link to="/connectwallet">
+                                <Button variant="outlined">
+                                    Access now
+                                </Button>
+                            </Link>
                         </CardContent>
                     </Card>
                 </Stack>

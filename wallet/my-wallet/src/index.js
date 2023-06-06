@@ -4,6 +4,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+
+console.log(process.env);
+console.log(process.env.NODE_ENV);
+
+if (process.env.NODE_ENV === 'production') {
+  console.log('App running in production mode');
+}
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
