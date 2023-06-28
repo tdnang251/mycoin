@@ -1,7 +1,7 @@
 # mycoin
 
 # Hướng dẫn chạy chương trình
-- Setting config:
+- Setting config: (Quan trọng)
     + Vào file config.js ở path ./wallet/my-wallet/src/config
     + Sửa ServerIP thành IP của máy chạy blockchain  
 
@@ -22,3 +22,6 @@
     + npm i
     + npm start
     - Frontend chạy ở port 3002
+
+- Link github: https://github.com/tdnang251/mycoin
+- Link demo: https://drive.google.com/file/d/1yKav8SZFFDQ01ab28SbnjYyL-q_FhuQ8/view?usp=sharing

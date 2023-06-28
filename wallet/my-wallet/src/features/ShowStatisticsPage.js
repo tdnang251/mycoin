@@ -12,12 +12,10 @@ function ShowStatisticsPage() {
         socket.emit("get_all_blocks");
         socket.emit("get_all_transactions")
         socket.on("blocks", (data) => {
-            console.log("Blocks: ", JSON.stringify(data["result"]))
-            setListBlocks(data["result"].reverse());
+            setListBlocks(data["result"]);
         })
         socket.on("transactions", (data) => {
-            console.log("Transactions: ", JSON.stringify(data["result"]))
-            setListTransactions(data["result"].reverse());
+            setListTransactions(data["result"]);
         })
     }, [])
 
@@ -32,8 +30,6 @@ function ShowStatisticsPage() {
         return formattedDate;
     }
 
-    let lenBlocks = listBlocks.length;
-    let lenTransactions = listTransactions.length;
     return (
         <Container sx={{ width: "100vw", mt: 10, ml: 0 }}>
             <NavBarSignIn />
@@ -60,9 +56,10 @@ function ShowStatisticsPage() {
                                             listBlocks.map((block, index) => (
                                                 <TableRow
                                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                    key={index}
                                                 >
                                                     <TableCell component="th" scope="row">
-                                                        Block {(lenBlocks - index)}
+                                                        Block {(index +1 )}
                                                     </TableCell>
                                                     <TableCell align="right">{dateTimeReviver(block["timestamp"])}</TableCell>
                                                     <TableCell align="right"></TableCell>
@@ -97,9 +94,10 @@ function ShowStatisticsPage() {
                                             listTransactions.map((tran, index) => (
                                                 <TableRow
                                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                    key={index}
                                                 >
                                                     <TableCell component="th" scope="row">
-                                                        {(lenTransactions - index)}
+                                                        {(index+1)}
                                                     </TableCell>
                                                     <TableCell align="right">{dateTimeReviver(tran["timestamp"])}</TableCell>
                                                     <TableCell align="right">{tran["fromAddress"] === null ? "Server" : tran["fromAddress"].substring(0, 10) + "..."}</TableCell>
